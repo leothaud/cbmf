@@ -1,5 +1,6 @@
 # cbmf
 
+cbmf is a langage that will be 
 
 
 ## grammar
@@ -39,6 +40,7 @@
 		| float
 		| char
 		| string
+		| '(' <value> (',' <value>)+ ')'
 		| '[' (<value> (';' <value>)*)? ']'
 		| '{' ident '=' <value> (';' ident '=' <value>)* '}'
 	
