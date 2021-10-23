@@ -20,6 +20,8 @@ cbmf is a langage that will be
 		| 'uint32'
 		| 'uint64'
 		| 'float'
+		| 'bool'
+		| <type> list
 		| <type>'[]'
 		| <user_defined_type>
 		| <tuple>
@@ -36,6 +38,8 @@ cbmf is a langage that will be
 	function_prototype ::= <type> ident '(' (<argument> (',' <argument>)*)? ')'
 	argument ::= <type> ident
 	value ::=
+		| 'true'
+		| 'false'
 		| int
 		| float
 		| char
@@ -43,6 +47,7 @@ cbmf is a langage that will be
 		| '(' <value> (',' <value>)+ ')'
 		| '[' (<value> (';' <value>)*)? ']'
 		| '{' ident '=' <value> (';' ident '=' <value>)* '}'
+		| 'List(' (<value> (',' <value>)*)? ')'
 	
 > <u>__header file__</u>
 
@@ -81,6 +86,8 @@ cbmf is a langage that will be
 		| <repeat_until_statement>
 		| <for_statement>
 		| <foreach_statement>
+		| <match_statement>
+		| <return_statement>
 		| <function_call>
 	variables_declaration ::= <type> <declaration> (',' <declaration>)*
 	declaration ::=
@@ -118,6 +125,7 @@ cbmf is a langage that will be
 		| '//'
 		| '<<'
 		| '>>'
+		| '::'
 	boolean_operator ::=
 		| '&&'
 		| '||'
@@ -132,3 +140,14 @@ cbmf is a langage that will be
 		| '&'
 		| '|'
 	function_call ::= ident '(' (<expresssion> (',' <expression>)*)? ')'
+	affectation_statement ::= <variable_expression> '=' <expression>
+	if_statement ::= 'if' '(' <expression> ')' '{' <statement>* '}' ('else' '{' <statement> '}')?
+	while_statement ::= 'while' '(' <expression> ')' '{' <statement>* '}'
+	do_while_statement ::= 'do' '{' <statement>* '}' 'while' '(' <expression> ')'
+	repeat_until_statement ::= 'repeat' '{' <statement>* '}' 'until' '(' <expression> ')'
+	for_statement ::= 'for' '(' <variables_declaration>? ';' <expression>? ';' <statement>? ')' '{' <statement>* '}'
+	foreach_statement ::= 'foreach' '(' <type> ident ':' <expression> ')' '{' <statement>* '}'
+	match_statement ::= 'match' '(' <expression> ')' '{' <match_case>* <match_default> '}'
+	match_case ::= 'case' '(' <expression> ')' '{' <statement>* '}'
+	match_default ::= 'default' '{' <statement> '}'
+	return_statement ::= 'return' <expression>
