@@ -70,10 +70,14 @@ type token =
   | DO of position
   | FOR of position
   | FOREACH of position
+  | REPEAT of position
+  | UNTIL of position
   | MATCH of position
   | CASE of position
   | DEFAULT of position
   | RETURN of position
+  | CARET of position (* ^ *)
+  | AT of position
 
 
 let print_token (token : token) : unit =
@@ -146,4 +150,8 @@ let print_token (token : token) : unit =
   | CASE _ -> Printf.printf "CASE"
   | DEFAULT _ -> Printf.printf "DEFAULT"
   | RETURN _ -> Printf.printf "RETURN"
-  | _ -> Printf.printf ">>"
+  | REPEAT _ -> Printf.printf "REPEAT"
+  | UNTIL _ -> Printf.printf "UNTIL"
+  | DOUBLE_MORE_THAN _ -> Printf.printf ">>"
+  | CARET _ -> Printf.printf "^"
+  | AT _ -> Printf.printf "@"

@@ -76,6 +76,11 @@ rule tokenize = parse
   | "alias"
       { ALIAS (get_pos lexbuf) :: tokenize lexbuf }
 
+  | '^'
+      { CARET (get_pos lexbuf) :: tokenize lexbuf }
+  | '@'
+      { AT (get_pos lexbuf) :: tokenize lexbuf }
+
   | '('
       { LEFT_PAREN (get_pos lexbuf) :: tokenize lexbuf }
   | ')'
@@ -162,6 +167,10 @@ rule tokenize = parse
       { MATCH (get_pos lexbuf) :: tokenize lexbuf }
   | "case"
       { CASE (get_pos lexbuf) :: tokenize lexbuf }
+  | "repeat"
+      { REPEAT (get_pos lexbuf) :: tokenize lexbuf }
+  | "until"
+      { UNTIL (get_pos lexbuf) :: tokenize lexbuf }
   | "default"
       { DEFAULT (get_pos lexbuf) :: tokenize lexbuf }
   | "return"

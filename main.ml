@@ -6,4 +6,7 @@ let _ =
         Token.print_token x;
         Printf.printf "\n"
       end in
-  List.map f tok_list
+  List.map f tok_list;
+  let tok_stream = Stream.of_list tok_list in
+  let ast = Parser.parse_header tok_stream in
+  Printf.printf "ok\n"

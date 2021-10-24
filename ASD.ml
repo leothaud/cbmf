@@ -41,12 +41,12 @@ and value =
 and header_item =
   | HeaderTypeDef of type_definition
   | FunctionDeclaration of function_prototype * function_documentation
-  | VoidFunctionDecaration of void_function_prototype * function_documentation
+  | VoidFunctionDeclaration of void_function_prototype * function_documentation
 
 and function_documentation = FunctionDocumentation of string
 
 and type_definition =
-  | UnionDefiniton of id * (union_item list)
+  | UnionDefinition of id * (union_item list)
   | StructDefinition of id * (struct_item list) * (operator_overload list)
   | AliasDefinition of id * type_
 
@@ -121,6 +121,7 @@ and arithmetic_operator =
   | RIGHT_SHIFT
   | CONCAT_STRING
   | CONCAT_LIST
+  | APPEND_LIST
 
 and boolean_operator =
   | AND
@@ -149,6 +150,6 @@ and return_statement =
   | ValueReturn of expression
 
 
-and header = Header of header_item list
+type cbmf_header = Header of header_item list
 
-and program = Program of (include_ list) * (function_definition list)
+type cbmf_program = Program of (include_ list) * (function_definition list)

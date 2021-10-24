@@ -1,4 +1,4 @@
-int32 main(int32 x, int32 y)["Bonjour"]
+int32 main(int32 x, int32 y)
 {
   int32 x = 3;
   int32 y = x + 6;
