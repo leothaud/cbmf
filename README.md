@@ -8,7 +8,6 @@ cbmf is a langage that will be
 > <u>__globals__</u>
 
 	type ::=
-		| 'void'
 		| 'char'
 		| 'string'
 		| 'int8'
@@ -36,6 +35,7 @@ cbmf is a langage that will be
 		| <type>
 		| <type> '*' <tuple>
 	function_prototype ::= <type> ident '(' (<argument> (',' <argument>)*)? ')'
+	void_function_prototype ::= 'void' ident '(' (<argument> (',' <argument>)*)? ')' 
 	argument ::= <type> ident
 	value ::=
 		| 'true'
@@ -47,14 +47,10 @@ cbmf is a langage that will be
 		| '(' <value> (',' <value>)+ ')'
 		| '[' (<value> (';' <value>)*)? ']'
 		| '{' ident '=' <value> (';' ident '=' <value>)* '}'
-		| 'List(' (<value> (',' <value>)*)? ')'
-	
-> <u>__header file__</u>
-
-	header ::= (<header_item> ';')+
 	header_item ::=
-		| <function_prototype> <function_documentation>?
 		| <type_definition>
+		| <function_prototype> <function_documentation>?
+		| <void_function_prototype> <function_documentation>?
 	function_documentation ::=  '[' string ']'
 	type_definition ::=
 		| <union_definition>
@@ -64,17 +60,12 @@ cbmf is a langage that will be
 	union_item ::= <type> ':' ident
 	struct_definition ::= 'struct' ident '{' (<struct_item> ';')+ (<operator_overload> ';')* '}'
 	struct_item ::= <type> ident
-	operator_overload ::= 'operator' <operator> = ident
+	operator_overload ::= 'operator' <operator> '=' ident
 	alias_definition ::= 'alias' ident <type>
-
-
-> <u>__code file__</u>
-
-	program ::=
-	   	| <include>*
-	   	| <function_definition>+
 	include ::= '>include' string 
-	function_definition ::= <function_prototype> '{' (<function_item> ';')+ '}'
+	function_definition ::=
+		| <function_prototype> '{' (<function_item> ';')+ '}'
+		| <void_function_prototype> '{' (<function_item> ';')+ '}'
 	function_item ::=
 		| <statement>
 		| <variables_declaration>
@@ -98,7 +89,7 @@ cbmf is a langage that will be
 		| ident '[' <expression> ']'
 	expression ::=
 		| <binary_expression>
-		| '(' expression ')'
+		| '(' <expression> ')'
 		| <constant_expression>
 		| <variable_expression>
 		| <cast_expression>
@@ -125,6 +116,7 @@ cbmf is a langage that will be
 		| '//'
 		| '<<'
 		| '>>'
+		| '^'
 		| '::'
 	boolean_operator ::=
 		| '&&'
@@ -147,7 +139,17 @@ cbmf is a langage that will be
 	repeat_until_statement ::= 'repeat' '{' <statement>* '}' 'until' '(' <expression> ')'
 	for_statement ::= 'for' '(' <variables_declaration>? ';' <expression>? ';' <statement>? ')' '{' <statement>* '}'
 	foreach_statement ::= 'foreach' '(' <type> ident ':' <expression> ')' '{' <statement>* '}'
-	match_statement ::= 'match' '(' <expression> ')' '{' <match_case>* <match_default> '}'
+	match_statement ::= 'match' '(' <expression> ')' '{' <match_case>* <match_default>? '}'
 	match_case ::= 'case' '(' <expression> ')' '{' <statement>* '}'
-	match_default ::= 'default' '{' <statement> '}'
-	return_statement ::= 'return' <expression>
+	match_default ::= 'default' '{' <statement>* '}'
+	return_statement ::= 'return' <expression>?
+
+> <u>__header file__</u>
+
+	header ::= (<header_item> ';')+
+
+> <u>__program file__</u>
+
+	program ::=
+	   	| <include>*
+	   	| <function_definition>+
