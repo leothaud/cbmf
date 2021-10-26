@@ -2,6 +2,7 @@ int32 main(int32 x, int32 y)
 {
   int32 x = 3;
   int32 y = x + 6;
+  x = 5;
   printf("%d", y);
   return 0;
 }

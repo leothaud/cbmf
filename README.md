@@ -133,13 +133,13 @@ cbmf is a langage that will be
 		| '|'
 	function_call ::= ident '(' (<expresssion> (',' <expression>)*)? ')'
 	affectation_statement ::= <variable_expression> '=' <expression>
-	if_statement ::= 'if' '(' <expression> ')' '{' <statement>* '}' ('else' '{' <statement> '}')?
-	while_statement ::= 'while' '(' <expression> ')' '{' <statement>* '}'
-	do_while_statement ::= 'do' '{' <statement>* '}' 'while' '(' <expression> ')'
-	repeat_until_statement ::= 'repeat' '{' <statement>* '}' 'until' '(' <expression> ')'
-	for_statement ::= 'for' '(' <variables_declaration>? ';' <expression>? ';' <statement>? ')' '{' <statement>* '}'
-	foreach_statement ::= 'foreach' '(' <type> ident ':' <expression> ')' '{' <statement>* '}'
-	match_statement ::= 'match' '(' <expression> ')' '{' <match_case>* <match_default>? '}'
+	if_statement ::= 'if' '(' <expression> ')' '{' (<statement> ';')* '}' ('else' '{' (<statement> ';')* '}')?
+	while_statement ::= 'while' '(' <expression> ')' '{' (<statement> ';')* '}'
+	do_while_statement ::= 'do' '{' (<statement> ';')* '}' 'while' '(' <expression> ')'
+	repeat_until_statement ::= 'repeat' '{' (<statement> ';')* '}' 'until' '(' <expression> ')'
+	for_statement ::= 'for' '(' <variables_declaration>? ';' <expression>? ';' (<statement> ';')? ')' '{' <statement>* '}'
+	foreach_statement ::= 'foreach' '(' <type> ident ':' <expression> ')' '{' (<statement> ';')* '}'
+	match_statement ::= 'match' '(' <expression> ')' '{' (<match_case> ';')* (<match_default> ';')? '}'
 	match_case ::= 'case' '(' <expression> ')' '{' <statement>* '}'
 	match_default ::= 'default' '{' <statement>* '}'
 	return_statement ::= 'return' <expression>?

@@ -34,9 +34,9 @@ and value =
   | Float of float
   | Char of char
   | String of string
-  | TupleValue of value list
-  | BracketValue of value list (* list or array *)
-  | StructValue of (id * value) list
+  | TupleValue of expression list
+  | BracketValue of expression list (* list or array *)
+  | StructValue of (id * expression) list
 
 and header_item =
   | HeaderTypeDef of type_definition
@@ -85,7 +85,7 @@ and variables_declaration = VarsDecl of type_ * (declaration list)
 
 and declaration =
   | NonInitializedDecl of variable_name
-  | InitializedDecl of variable_name * value
+  | InitializedDecl of variable_name * expression
 
 and variable_name =
   | Var of id
@@ -153,3 +153,8 @@ and return_statement =
 type cbmf_header = Header of header_item list
 
 type cbmf_program = Program of (include_ list) * (function_definition list)
+
+and cbmf_file =
+  | ProgramFile of cbmf_program
+  | HeaderFile of cbmf_header
+  | NOP
